@@ -15,14 +15,12 @@ const userSchema = new mongoose.Schema({
       default: "Employee",
     },
   ],
-  active: [
-    {
-      type: Boolean,
-      default: true,
-    },
-  ],
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const model = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
-export default model;
+export default User;

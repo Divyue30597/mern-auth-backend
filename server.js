@@ -8,9 +8,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { connectDb } from "./config/dbConn.js";
 import { corsOptions } from "./config/coorsOptions.js";
-import { index } from "./routes/root.js";
+import { root } from "./routes/root.js";
 import { logger, logEvents } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { userRoute } from "./routes/userRoutes.js";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__fileName);
@@ -29,7 +30,9 @@ app.use(cookieParser());
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
-app.use("/", index());
+app.use("/", root());
+
+app.use("/users", userRoute());
 
 app.all("*", (req, res) => {
   res.status(404);
