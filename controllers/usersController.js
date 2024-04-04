@@ -49,7 +49,6 @@ export const createNewUser = asyncHandler(async (req, res) => {
   };
 
   // Create and store new user to db
-
   const user = await User.create(userObj);
 
   if (user) {
@@ -129,7 +128,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
   const note = await Note.findOne({ user: id }).lean().exec();
 
-  if (!note) {
+  if (note) {
     return res.status(400).json({
       message: "User has assigned note.",
     });
@@ -145,7 +144,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
   const result = await User.deleteOne();
 
-  const reply = `Username ${result.username} with ID ${result.id} is deleted.`;
+  const reply = `Username ${result.username} with ID ${id} is deleted.`;
 
   res.status(200).json({
     message: reply,

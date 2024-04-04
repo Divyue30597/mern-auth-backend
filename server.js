@@ -12,6 +12,7 @@ import { root } from "./routes/root.js";
 import { logger, logEvents } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { userRoute } from "./routes/userRoutes.js";
+import { notesRoute } from "./routes/noteRoutes.js";
 
 const __fileName = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__fileName);
@@ -33,6 +34,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", root());
 
 app.use("/users", userRoute());
+app.use("/notes", notesRoute());
 
 app.all("*", (req, res) => {
   res.status(404);
