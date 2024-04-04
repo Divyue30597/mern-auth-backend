@@ -83,9 +83,9 @@ export const createNewNote = asyncHandler(async (req, res, next) => {
  * @access  Private
  */
 export const updateNote = asyncHandler(async (req, res, next) => {
-  const { id, user, title, text, completed } = req.body;
+  const { id, username, title, text, completed } = req.body;
 
-  if (!id || !user || !title || !text || !completed) {
+  if (!id || !username || !title || !text || !completed) {
     return res.status(400).json({
       message: "All fields are required.",
     });
@@ -107,7 +107,7 @@ export const updateNote = asyncHandler(async (req, res, next) => {
     });
   }
 
-  note.user = user;
+  note.username = username;
   note.title = title;
   note.text = text;
   note.completed = completed;
@@ -144,8 +144,6 @@ export const deleteNote = asyncHandler(async (req, res, next) => {
   const result = await note.deleteOne();
 
   const reply = `Note ${note.title} with id ${note.id} is deleted.`;
-
-  console.log(note);
 
   res.status(200).json({
     message: reply,
