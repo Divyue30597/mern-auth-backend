@@ -11,6 +11,7 @@ import { corsOptions } from "./config/coorsOptions.js";
 import { root } from "./routes/root.js";
 import { logger, logEvents } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { authRoutes } from "./routes/authRoutes.js";
 import { userRoute } from "./routes/userRoutes.js";
 import { notesRoute } from "./routes/noteRoutes.js";
 
@@ -32,7 +33,7 @@ app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/", root());
-
+app.use("/auth", authRoutes());
 app.use("/users", userRoute());
 app.use("/notes", notesRoute());
 

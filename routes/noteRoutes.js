@@ -5,9 +5,12 @@ import {
   getAllNotes,
   updateNote,
 } from "../controllers/noteController.js";
+import { verifyJWT } from "../middleware/verifyJWT.js";
 
 export function notesRoute() {
   const router = Router();
+
+  router.use(verifyJWT);
 
   router
     .route("/")

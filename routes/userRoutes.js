@@ -5,16 +5,16 @@ import {
   getAllUser,
   updateUser,
 } from "../controllers/usersController.js";
+import { verifyJWT } from "../middleware/verifyJWT.js";
 
 export function userRoute() {
   const router = Router();
 
-  router
-    .route("/")
-    .get(getAllUser)
-    .post(createNewUser)
-    .patch(updateUser)
-    .delete(deleteUser);
+  router.route("/").post(createNewUser);
+
+  router.use(verifyJWT);
+
+  router.route("/").get(getAllUser).patch(updateUser).delete(deleteUser);
 
   return router;
 }

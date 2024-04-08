@@ -10,7 +10,7 @@ import Note from "../models/Note.js";
  * @access  Private
  */
 export const getAllUser = asyncHandler(async (req, res) => {
-  const users = await User.find().select("-password").lean();
+  const users = await User.find().select("-password -__v").lean();
 
   if (!users?.length) {
     return res.status(400).json({ message: "No User Found." });
@@ -29,7 +29,7 @@ export const getAllUser = asyncHandler(async (req, res) => {
 export const createNewUser = asyncHandler(async (req, res) => {
   const { username, password, roles } = req.body;
 
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
+  if (!username || !password || !roles || !roles.length) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
